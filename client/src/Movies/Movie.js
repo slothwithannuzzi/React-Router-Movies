@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, NavLink, useRouteMatch, Switch, Route } from 'react-router-dom'
 import axios from 'axios';
 
 export default function Movie(props) {
+
+  const { ID } = props;
   const [movie, setMovie] = useState();
 
-  const [id, setId] = useState(props.id);
-  // Change ^^^ that line and use a hook to obtain the :id parameter from the URL
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/movies/${id}`) // Study this endpoint with Postman
+      .get(`http://localhost:5000/api/movies/${ID}`) // Study this endpoint with Postman
       .then(response => {
         // Study this response with a breakpoint or log statements
         // and set the response data as the 'movie' slice of state
@@ -20,7 +21,7 @@ export default function Movie(props) {
       });
     // This effect should run every time time
     // the `id` changes... How could we do this?
-  }, [id]);
+  }, []);
 
   // Uncomment this only when you have moved on to the stretch goals
   // const saveMovie = evt => { }
@@ -29,7 +30,7 @@ export default function Movie(props) {
     return <div>Loading movie information...</div>;
   }
 
-  const { title, director, metascore, stars } = movie;
+  const { title, director, metascore, stars } = movie.data;
 
   return (
     <div className="save-wrapper">
