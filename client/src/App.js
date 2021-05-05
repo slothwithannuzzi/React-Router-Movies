@@ -45,6 +45,7 @@ console.log(movieList)
       )
       }
     </Switch>
+    
     </div>
   );
 }
